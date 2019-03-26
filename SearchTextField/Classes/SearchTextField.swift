@@ -277,6 +277,7 @@ open class SearchTextField: UITextField {
             //  cellHeights in the theme. We do it here to ensure updates to these settings
             //  are recognized if changed after the tableView is created
             tableView.estimatedRowHeight = theme.cellHeight
+            tableView.rowHeight = UITableView.automaticDimension
             if self.direction == .down {
                 
                 var tableHeight: CGFloat = 0
@@ -572,6 +573,8 @@ extension SearchTextField: UITableViewDelegate, UITableViewDataSource {
         cell!.layoutMargins = UIEdgeInsets.zero
         cell!.preservesSuperviewLayoutMargins = false
         cell!.textLabel?.font = theme.font
+        cell!.textLabel?.numberOfLines = 0
+        cell!.textLabel?.lineBreakMode = .byWordWrapping
         cell!.detailTextLabel?.font = UIFont(name: theme.font.fontName, size: theme.font.pointSize * fontConversionRate)
         cell!.textLabel?.textColor = theme.fontColor
         cell!.detailTextLabel?.textColor = theme.subtitleFontColor
@@ -588,9 +591,9 @@ extension SearchTextField: UITableViewDelegate, UITableViewDataSource {
         return cell!
     }
     
-    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return theme.cellHeight
-    }
+//    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return theme.cellHeight
+//    }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if itemSelectionHandler == nil {
